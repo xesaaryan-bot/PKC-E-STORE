@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YourStore | Online Shop</title>
+<meta name="description" content="Shop quality products at YourStore.">
+<style>
+:root{--ink:#182230;--muted:#667085;--brand:#2457d6;--bg:#f6f8fc;--line:#e5eaf2}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.wrap{max-width:1100px;margin:auto;padding:16px 20px}.nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-weight:850;font-size:22px;letter-spacing:-.5px}.logo span{color:var(--brand)}
+button,.btn{border:0;border-radius:12px;background:var(--brand);color:white;font-weight:700;padding:12px 16px;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}.cartbtn{background:#eef3ff;color:var(--brand)}
+.hero{padding:42px 0 28px}.hero-inner{background:linear-gradient(120deg,#eaf0ff,#fff);border:1px solid #dce6ff;border-radius:24px;padding:32px}
+.eyebrow{color:var(--brand);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:1.3px}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:10px 0 12px;max-width:650px}p{line-height:1.55}.muted{color:var(--muted)}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:24px 0 16px}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.product-art{height:170px;display:grid;place-items:center;background:linear-gradient(135deg,#edf2ff,#f8faff);font-size:60px}
+.cardbody{padding:16px}.card h3{margin:0 0 6px;font-size:17px}.price{font-weight:850;font-size:20px}.card p{margin:7px 0 14px;font-size:14px}
+.card button{width:100%}.layout{display:grid;grid-template-columns:1fr 350px;gap:20px;align-items:start;margin:24px 0 50px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}.panel h2{margin:0 0 14px;font-size:20px}
+.cartrow{display:flex;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.cartrow:last-child{border:0}
+.qty{display:flex;align-items:center;gap:8px;margin-top:8px}.qty button{padding:4px 10px;border-radius:8px;background:#edf2ff;color:var(--brand)}
+.total{display:flex;justify-content:space-between;font-weight:850;font-size:19px;padding:16px 0}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}input,textarea{width:100%;padding:12px;border:1px solid #d4dce8;border-radius:10px;font:inherit;background:white}textarea{min-height:76px;resize:vertical}
+.small{font-size:12px;color:var(--muted)}.notice{background:#fff8e6;border:1px solid #f2d58c;padding:12px;border-radius:12px;font-size:13px;margin-top:12px}
+footer{border-top:1px solid var(--line);background:white}.foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+#status{margin-top:12px;font-size:14px}
+@media(max-width:760px){.products{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.product-art{height:135px}.hero-inner{padding:24px}.wrap{padding:14px}}
+@media(max-width:430px){.products{grid-template-columns:1fr 1fr;gap:10px}.cardbody{padding:12px}.product-art{height:110px;font-size:44px}.card h3{font-size:15px}.card p{font-size:12px}.card button{padding:10px 8px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><div class="logo"><span>YOUR</span>STORE</div><button class="cartbtn" onclick="document.querySelector('#cart').scrollIntoView({behavior:'smooth'})">🛒 Cart (<span id="cartCount">0</span>)</button></div></header>
+<main class="wrap">
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Welcome to YourStore</div><h1>Good products. Fair prices.</h1><p class="muted">आपकी पसंद, आपके घर तक। Quality products with a simple and secure shopping experience.</p><button onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})">Shop now / खरीदें</button></div></section>
+<div class="sectionhead" id="shop"><div><div class="eyebrow">Our collection</div><h2 style="margin:5px 0">Featured products / खास प्रोडक्ट</h2></div><span class="muted small">Demo products — replace before launch</span></div>
+<section class="products" id="products"></section>
+<section class="layout">
+<div class="panel" id="cart"><h2>Your cart / आपका कार्ट</h2><div id="cartItems"><p class="muted">Your cart is empty. Add a product to begin.</p></div><div class="total"><span>Total / कुल</span><span id="total">₹0</span></div><p class="small">Shipping charges, if any, should be confirmed before payment.</p></div>
+<div class="panel"><h2>Checkout / ऑर्डर विवरण</h2>
+<form id="checkout">
+<label for="name">Full name / पूरा नाम</label><input id="name" name="name" autocomplete="name" required>
+<label for="phone">Mobile number / मोबाइल नंबर</label><input id="phone" name="phone" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number" required>
+<label for="address">Full delivery address / पूरा पता</label><textarea id="address" name="address" required></textarea>
+<label for="pin">PIN code / पिन कोड</label><input id="pin" name="pin" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required>
+<label for="notes">Order notes (optional) / अतिरिक्त जानकारी</label><textarea id="notes" name="notes" placeholder="Landmark, delivery instructions..."></textarea>
+<button id="payBtn" type="submit" style="width:100%;margin-top:16px">Continue to secure payment</button>
+<div id="status" role="status"></div>
+</form>
+<div class="notice"><strong>Payment setup required:</strong> Real payments stay disabled until you deploy the server functions and add Razorpay test/live keys in your hosting settings. Never put the Key Secret in this HTML file.</div>
+</div>
+</section>
+</main>
+<footer><div class="wrap foot"><div><strong>YOURSTORE</strong><p class="small">Replace with your legal business name and contact details.</p></div><div class="small">Shipping · Returns · Privacy · Contact<br>Publish these policy pages before selling.</div></div></footer>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+const PRODUCTS = [
+ {id:"demo1",name:"Everyday Essential",hi:"रोज़मर्रा का प्रोडक्ट",price:299,emoji:"📦",desc:"Replace with your real product details."},
+ {id:"demo2",name:"Premium Choice",hi:"प्रीमियम विकल्प",price:499,emoji:"✨",desc:"Add accurate features and materials."},
+ {id:"demo3",name:"Best Seller",hi:"लोकप्रिय प्रोडक्ट",price:199,emoji:"🎁",desc:"Use your own product photo and price."}
+];
+const cart = {};
+const money = n => new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0}).format(n);
+function renderProducts(){document.querySelector("#products").innerHTML=PRODUCTS.map(p=>`<article class="card"><div class="product-art" aria-hidden="true">${p.emoji}</div><div class="cardbody"><h3>${p.name}</h3><div class="muted small">${p.hi}</div><p class="muted">${p.desc}</p><div class="price">${money(p.price)}</div><button style="margin-top:12px" onclick="add('${p.id}')">Add to cart / जोड़ें</button></div></article>`).join("");}
+function add(id){cart[id]=(cart[id]||0)+1;renderCart()}
+function change(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart()}
+function items(){return PRODUCTS.filter(p=>cart[p.id]).map(p=>({...p,qty:cart[p.id]}))}
+function renderCart(){let all=items();document.querySelector("#cartCount").textContent=all.reduce((s,p)=>s+p.qty,0);document.querySelector("#total").textContent=money(all.reduce((s,p)=>s+p.price*p.qty,0));document.querySelector("#cartItems").innerHTML=all.length?all.map(p=>`<div class="cartrow"><div><strong>${p.name}</strong><div class="small">${money(p.price)} × ${p.qty}</div><div class="qty"><button type="button" onclick="change('${p.id}',-1)">−</button><span>${p.qty}</span><button type="button" onclick="change('${p.id}',1)">+</button></div></div><strong>${money(p.price*p.qty)}</strong></div>`).join(""):'<p class="muted">Your cart is empty. Add a product to begin.</p>'}
+document.querySelector("#checkout").addEventListener("submit",async e=>{
+ e.preventDefault(); const all=items(); const status=document.querySelector("#status"),btn=document.querySelector("#payBtn");
+ if(!all.length){status.textContent="Please add a product to your cart first.";return}
+ const customer={name:document.querySelector("#name").value.trim(),phone:document.querySelector("#phone").value.trim(),address:document.querySelector("#address").value.trim(),pin:document.querySelector("#pin").value.trim(),notes:document.querySelector("#notes").value.trim()};
+ btn.disabled=true;status.textContent="Preparing secure checkout…";
+ try{
+  const r=await fetch("/api/create-order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:all.map(p=>({id:p.id,qty:p.qty})),customer})});
+  const data=await r.json();if(!r.ok)throw new Error(data.error||"Checkout setup is not ready.");
+  const options={key:data.keyId,amount:data.amount,currency:"INR",name:"YOURSTORE",description:"Online store order",order_id:data.orderId,prefill:{name:customer.name,contact:customer.phone},notes:{delivery_pin:customer.pin},theme:{color:"#2457d6"},
+   handler:async function(response){status.textContent="Verifying payment…";const vr=await fetch("/api/verify-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...response,customer,items:all.map(p=>({id:p.id,qty:p.qty})),amount:data.amount})});const vd=await vr.json();if(!vr.ok)throw new Error(vd.error||"Payment verification failed.");status.textContent="Payment verified. Order reference: "+vd.orderReference;for(const k of Object.keys(cart))delete cart[k];renderCart();btn.disabled=false;},
+   modal:{ondismiss:()=>{status.textContent="Payment window closed. You can try again.";btn.disabled=false;}}
+  };
+  const rz=new Razorpay(options);rz.on("payment.failed",resp=>{status.textContent="Payment failed. Please try again.";btn.disabled=false});rz.open();
+ }catch(err){status.textContent=err.message+" See README.md to configure the backend and payment keys.";btn.disabled=false}
+});
+renderProducts();renderCart();
+</script>
+</body>
+</html>
