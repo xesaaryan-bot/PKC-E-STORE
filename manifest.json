@@ -1,0 +1,17 @@
+{
+  "name": "Varnya Store",
+  "short_name": "Varnya",
+  "description": "Premium Cosmetics & Jewellery Store",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF6F0",
+  "theme_color": "#8B5A2B",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
